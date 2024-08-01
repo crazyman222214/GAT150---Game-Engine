@@ -1,6 +1,6 @@
 #include "Scene.h"
-#include "Actor.h"
-#include "Model.h"
+#include "../Renderer/Actor.h"
+#include "../Renderer/Model.h"
 #include <algorithm>
 #include <memory>
 #include <iostream>

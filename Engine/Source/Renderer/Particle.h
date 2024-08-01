@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector2.h"
+#include "../Math/Vector2.h"
 #include "Renderer.h"
 
 //We are using struct here since we want all the data to be public

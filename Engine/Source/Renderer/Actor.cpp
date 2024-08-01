@@ -1,6 +1,6 @@
 #include "Actor.h"
 #include "Model.h"
-#include "Input.h"
+#include "../Input/Input.h"
 
 void Actor::Update(float dt)
 {
