@@ -9,6 +9,7 @@
 #include <vector>
 #include <cassert>
 #include <SDL_image.h>
+#include <Renderer/Text.h>
 
 int main(int argc, char* argv[])
 {
@@ -22,8 +23,10 @@ int main(int argc, char* argv[])
 	
 
 	res_t<Texture> texture = ResourceManager::Instance().Get<Texture>("Murio.jpg", engine->GetRenderer());
-	//res_t<Font> font = ResourceManager::Instance().Get<Font>("", 20);
-
+	res_t<Font> font = ResourceManager::Instance().Get<Font>("Blockletter.otf", 20);
+	std::unique_ptr<Text> text = std::make_unique<Text>(font);
+	text->Create(engine->GetRenderer(), "Game Over Loser", { 1, 0, 0, 1 });
+	
 	while (!engine->IsQuit())
 	{
 		engine->Update();
@@ -31,9 +34,10 @@ int main(int argc, char* argv[])
 		engine->GetRenderer().BeginFrame();
 
 		engine->GetRenderer().DrawTexture(texture.get(), 30, 30);
+		text->Draw(engine->GetRenderer(), engine->GetRenderer().GetWidth() - 200, 20);
 
-		//game->Draw(engine->GetRenderer());
 		engine->GetPS().Update(engine->GetTime().GetDeltaTime());
+
 		engine->GetRenderer().EndFrame();
 
 	}
