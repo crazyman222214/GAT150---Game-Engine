@@ -9,10 +9,15 @@
 #include "Math/Transform.h"
 #include "Renderer/Particle.h"
 #include "Renderer/Model.h"
+#include "Framework/ParticleSystem.h"
+#include "Renderer/Font.h"
+
+#include "Resources/Resource.h"
+#include "Resources/ResourceManager.h"
+
 
 #include <SDL.h>
 #include <fmod.hpp>
-#include "Framework/ParticleSystem.h"
 
 class Engine
 {
