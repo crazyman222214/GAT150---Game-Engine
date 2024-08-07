@@ -7,6 +7,9 @@
 class ResourceManager : public Singleton<ResourceManager>
 {
 public:
+
+	void Clear() { m_resources.clear(); }
+
 	template <typename T, typename ... TArgs>
 	res_t<T> Get(const std::string& name, TArgs ... args);
 
