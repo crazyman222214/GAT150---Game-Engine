@@ -8,6 +8,7 @@
 
 #include "Audio/Audio.h"
 
+#include "Core/Factory.h"
 #include "Core/ETime.h"
 #include "Core/Json.h"
 

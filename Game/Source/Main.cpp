@@ -14,8 +14,10 @@
 #include <SDL_image.h>
 
 
+
 int main(int argc, char* argv[])
 {
+	Factory::Instance().Register<Actor>("Actor");
 	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
 
 	engine->Initialize();
@@ -30,20 +32,27 @@ int main(int argc, char* argv[])
 	rapidjson::Document document;
 	Json::Load("text.txt", document);
 
+	// read the data from the json
 	std::string name;
-	int age = 1;
-	bool isAwake = false;
+	int age;
+	float speed;
+	bool isAwake;
+	Vector2 position;
+	Color color;
 
 
 	//READ_DATA(document, age);
-	Json::Read(document, "age", age);
+	READ_DATA(document, name);
+	READ_DATA(document, age);
+	READ_DATA(document, speed);
+	READ_DATA(document, isAwake);
+	READ_DATA(document, position);
+	READ_DATA(document, color);
 
-	Json::Read(document, "name", name);
-	Json::Read(document, "isAwake", isAwake);
 
-	std::cout << age << std::endl;
-	std::cout << name << std::endl;
-	std::cout << isAwake << std::endl;
+	std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+	std::cout << position.x << " " << position.y << std::endl;
+	std::cout << color.r << " " << color.g << " " << color.b << " " << color.a << std::endl;
 
 	//Adding another scope that way when we get out of the scope,
 	//The font gets correctly deconstructed
