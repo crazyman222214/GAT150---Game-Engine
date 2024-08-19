@@ -11,12 +11,14 @@ bool Engine::Initialize()
     m_audio = std::make_unique<Audio>();
     m_time = std::make_unique<Time>();
     m_ps = std::make_unique<ParticleSystem>();
+    m_network = std::make_unique<Net>();
 
     m_renderer->Initialize();
-    m_renderer->CreateWindow("Game Engine", 800, 600);
+    m_renderer->ECreateWindow("Game Engine", 800, 600);
 
     m_input->Initialize();
     m_audio->Initialize();
+    m_network->Initialize();
 
 
     return true;
@@ -53,7 +55,6 @@ void Engine::Update()
     m_time->Tick();
     m_input->Update();
     m_audio->Update();
-    
 }
 
 

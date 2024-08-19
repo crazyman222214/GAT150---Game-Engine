@@ -1,13 +1,6 @@
 #include "Font.h"
 #include <iostream>
 
-Font::~Font()
-{
-	if (m_ttfFont != nullptr)
-	{
-		TTF_CloseFont(m_ttfFont);
-	}
-}
 
 bool Font::Load(const std::string& name, int fontSize)
 {

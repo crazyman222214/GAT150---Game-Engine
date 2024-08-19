@@ -6,7 +6,7 @@ class Font : public Resource
 {
 public:
 	Font() = default;
-	~Font();
+	~Font() = default;
 
 	bool Create(std::string filename, ...) override;
 	bool Load(const std::string& name, int fontSize);

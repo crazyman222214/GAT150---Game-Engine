@@ -1,0 +1,45 @@
+{
+  "actors": [
+    {
+      "name": "Player",
+      "transform": {
+        "position": [ 20, 30 ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Murio.jpg"
+        },
+        {
+          "type": "EnginePhysicsComponent",
+          "velocity": [ 0, 0 ],
+          "damping": 0.3
+          
+        },
+        {
+          "type": "PlayerComponent",
+          "speed": 100
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "transform": {
+        "Position": [ 560, 360 ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "TextComponent",
+          "text": "Yippee",
+          "fontName": "Blockletter.otf",
+          "fontSize": 24,
+          "color": [ 0, 1, 0, 1 ]
+        }
+      ]
+    }
+  ]
+}
