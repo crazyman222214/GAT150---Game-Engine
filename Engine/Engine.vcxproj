@@ -46,6 +46,7 @@
     <ClInclude Include="Source\Math\Random.h" />
     <ClInclude Include="Source\Math\Transform.h" />
     <ClInclude Include="Source\Math\Vector2.h" />
+    <ClInclude Include="Source\Physics\Physics.h" />
     <ClInclude Include="Source\Renderer\Actor.h" />
     <ClInclude Include="Source\Renderer\Color.h" />
     <ClInclude Include="Source\Renderer\Font.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Source\Framework\Scene.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Math\Transform.cpp" />
+    <ClCompile Include="Source\Physics\Physics.cpp" />
     <ClCompile Include="Source\Renderer\Actor.cpp" />
     <ClCompile Include="Source\Renderer\Font.cpp" />
     <ClCompile Include="Source\Renderer\Model.cpp" />
@@ -165,7 +167,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include;$(SolutionDir)ThirdParty\Box2D\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -190,7 +192,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include;$(SolutionDir)ThirdParty\Box2D\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -214,7 +216,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include;$(SolutionDir)ThirdParty\Box2D\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -240,7 +242,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\fmod\core\inc;$(SolutionDir)ThirdParty\SDL2\include;$(ProjectDir)Source;$(SolutionDir)ThirdParty\rapidjson\rapidjson\include;$(SolutionDir)ThirdParty\ENet\include;$(SolutionDir)ThirdParty\Box2D\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

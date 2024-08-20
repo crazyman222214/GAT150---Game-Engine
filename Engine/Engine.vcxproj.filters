@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{c3122408-0ef6-43da-8af3-c2eba5a73ec3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{d6462802-ac85-4905-946d-d49a8ba92f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{0e9aa7a2-2e47-486f-9f87-decc377a4400}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Framework\Game.h">
@@ -171,6 +177,9 @@
     <ClInclude Include="Source\Components\ButtonComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Physics\Physics.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Audio.cpp">
@@ -250,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Source\Components\ButtonComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics\Physics.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

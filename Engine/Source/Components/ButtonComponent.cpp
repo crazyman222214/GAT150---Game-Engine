@@ -18,7 +18,7 @@ void ButtonComponent::Update(float dt)
 
 void ButtonComponent::Draw(Renderer& renderer)
 {
-	renderer.DrawTexture(m_text->GetTexture(), owner->transform);
+	//renderer.DrawTexture(m_text->GetTexture(), owner->transform);
 }
 
 void ButtonComponent::Read(const json_t& value)
