@@ -1,9 +1,15 @@
 #include "Scene.h"
 #include "../Renderer/Actor.h"
 #include "Core/Factory.h"
+#include "Core/EAssert.h"
+#include "Engine.h"
+#include "Core/Net.h"
+#include "Game.h"
 #include <algorithm>
 #include <memory>
 #include <iostream>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 
 void Scene::Initialize()
@@ -22,39 +28,27 @@ void Scene::Update(float dt)
 {
 	for (auto& actor : actors)
 	{
-		if (actor->active) actor->Update(dt);
+		if (actor->active)
+		{
+			actor->Update(dt);
+		}
 	}
 
 	std::erase_if(actors, [](auto& actor) {return actor->destroyed; });
-	//CheckForCollisions();
+	Write(*document);
+
+
+	//engine->GetNetwork().sendMessage();
+
+	//Each update I need to get the json value for the player actor and send that as a packet to the connected peer
+	//Once you get the packet. it should take the packet and change any changes that need to be made for its local
+	//data for the other player
+
 }
 
-/// <summary>
-/// Checks for collisions and handles calling the colliding actor's OnCollision
-/// </summary>
-void Scene::CheckForCollisions()
+Scene::Scene(const Scene& other)
 {
-	
-
-	/*for (auto& actor1 : m_actors)
-	{
-		for (auto& actor2 : m_actors)
-		{
-			if (actor1 == actor2 || (actor1->destroyed || actor2->destroyed)) continue;
-
-			Vector2 direction = actor1->GetTransform().position - actor2->GetTransform().position;
-			float distance = direction.Length();
-
-			float radius = actor1->GetRadius() + actor2->GetRadius();
-
-			if (distance <= radius)
-			{
-				actor1->OnCollision(actor2.get());
-				actor2->OnCollision(actor1.get());
-			}
-
-		}
-	}*/
+	ASSERT(false);
 }
 
 void Scene::Read(const json_t& value)
@@ -66,13 +60,59 @@ void Scene::Read(const json_t& value)
 			auto actor = Factory::Instance().Create<Actor>(Actor::GetTypeName());
 			actor->Read(actorValue);
 
-			AddActor(std::move(actor));
+			bool prototype = false;
+			READ_DATA(actorValue, prototype);
+			if (prototype)
+			{
+				std::string name = actor->name;
+				Factory::Instance().RegisterPrototype<Actor>(name, std::move(actor));
+			}
+			else
+			{
+				AddActor(std::move(actor));
+			}
+
 		}
 	}
 }
 
 void Scene::Write(json_t& value)
 {
+	if (HAS_DATA(value, actors) && GET_DATA(value, actors).IsArray())
+	{
+		auto actorsJSON = GET_DATA(value, actors).GetArray();
+		auto actor = actors.begin();
+		for (int i = 0; i < actorsJSON.Size(); i++)
+		{
+			actor->get()->Write(actorsJSON[i]);
+
+			if (actor->get()->name == "Player")
+			{
+				//As it writes the json, it should serialize the data and send the packet
+
+				//String version of the actor
+
+				rapidjson::StringBuffer strbuf;
+				strbuf.Clear();
+
+				rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
+				document->Accept(writer);
+
+				std::string stringPlayer = strbuf.GetString();
+				//std::cout << stringPlayer;
+
+				//engine->GetNetwork().sendMessageToClient("You a bitch");
+				//Needs to know which type of client it is talking to.
+
+				//(game->isHost) ? engine->GetNetwork().sendMessageToClient(stringPlayer + ":Host") : engine->GetNetwork().sendMessageToHost(stringPlayer + ":Client");
+
+			}
+
+			//increments the iterator: actor
+			if (!(actor == actors.end())) std::advance(actor, 1);
+		}
+		
+	}
 }
 
 /// <summary>
@@ -92,10 +132,11 @@ void Scene::Draw(Renderer& renderer)
 /// Adds an actor into the scene
 /// </summary>
 /// <param name="actor">A unique pointer to the actor you want to add to the scene</param>
-void Scene::AddActor(std::unique_ptr<Actor> actor)
+void Scene::AddActor(std::unique_ptr<Actor> actor, bool initialize)
 {
-	
 	actor->scene = this;
+	if (initialize) actor->Initialize();
+
 	actors.push_back(std::move(actor));
 }
 

@@ -10,4 +10,5 @@ namespace File
 	bool FileExists(const std::string& filepath);
 	bool GetFileSize(const std::string& filepath, int& size);
 	bool ReadFile(const std::string filepath, std::string& buffer);
+	bool SaveFile(const std::string filepath, std::string& buffer);
 }

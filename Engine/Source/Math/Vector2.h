@@ -44,6 +44,9 @@ struct Vector2
 	float LengthSqr() const { return ( (x * x) + (y * y)); }
 	float Length() const { return ( std::sqrt( (x * x) + (y * y) )); }
 
+	float DistanceSqr(const Vector2& v) { return (v - *this).LengthSqr(); }
+	float Distance(const Vector2& v) { return (v - *this).Length(); }
+
 	float Angle() const { return Math::Atan2(x, y); }
 
 	Vector2 Rotate(float radians) const;

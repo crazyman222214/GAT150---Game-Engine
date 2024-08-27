@@ -51,3 +51,21 @@ bool File::ReadFile(const std::string filepath, std::string& buffer)
 
     return true;
 }
+
+bool File::SaveFile(const std::string filepath, std::string& buffer)
+{
+    if (!FileExists(filepath))
+    {
+        std::cerr << "File does not exist: " << filepath << std::endl;
+        return false;
+    }
+    std::ofstream output(filepath);
+    if (!output.is_open())
+    {
+        std::cerr << "Could not open file: " << filepath << std::endl;
+        return false;
+    }
+    std::istringstream istream;
+
+    return true;
+}

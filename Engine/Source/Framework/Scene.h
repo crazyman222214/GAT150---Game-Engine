@@ -13,37 +13,33 @@ class Scene : public Object
 {
 public:
 	
-	Scene(Engine* engine, Game* game = nullptr) : engine{engine}, game { game } {}
-	
+	Scene(Engine* engine, rapidjson::Document* document, Game* game = nullptr) : engine{ engine }, document{document}, game { game } {}
+	Scene(const Scene& other);
 	CLASS_DECLARATION(Scene)
-
+	CLASS_PROTOTYPE(Scene)
+	// Inherited via Object
+	void Initialize() override;
 	void Update(float dt);
 	void Draw(Renderer& renderer);
 
-	void AddActor(std::unique_ptr<Actor> actor);
+	void AddActor(std::unique_ptr<Actor> actor, bool initialize = false);
 	void RemoveAll();
 	void CheckForCollisions();
 
 	template<typename T> T* GetActor();
 	template<typename T> T* GetActor(const std::string& name);
 
-
 	Game* game{ nullptr };
 	Engine* engine{ nullptr };
 
+	rapidjson::Document* document;
 
 	Actor* GetActorFromPosition(Vector2 position);
 	Actor* GetClosestEnemyWithinRadius(Actor& actor, float radius);
 
 	bool AreThereEnemies();
-	// Inherited via Object
-	void Initialize() override;
-	
-
 protected:
 	std::list<std::unique_ptr<Actor>> actors;
-
-
 
 };
 

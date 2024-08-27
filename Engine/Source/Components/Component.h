@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Object.h"
+#include "Core/Factory.h"
 
 
 class Component : public Object

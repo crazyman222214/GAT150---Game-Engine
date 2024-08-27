@@ -1,11 +1,14 @@
 #pragma once
 #include "RenderComponent.h"
-
+#include "Renderer/Text.h"
 class TextComponent : public RenderComponent
 {
 public:
+	TextComponent() = default;
+	TextComponent(const TextComponent& other);
 
 	CLASS_DECLARATION(TextComponent)
+	CLASS_PROTOTYPE(TextComponent)
 	// Inherited via RenderComponent
 	void Initialize() override;
 
@@ -21,6 +24,6 @@ public:
 	Color color{ 1,1,1,1 };
 
 private:
-	std::unique_ptr<class Text> m_text;
+	std::unique_ptr<Text> m_text;
 	bool changed = true;
 };

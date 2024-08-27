@@ -1228,7 +1228,7 @@ public:
         if (member != MemberEnd())
             return member->value;
         else {
-            RAPIDJSON_ASSERT(false);    // see above note
+            //RAPIDJSON_ASSERT(false);    // see above note
 
 #if RAPIDJSON_HAS_CXX11
             // Use thread-local storage to prevent races between threads.

@@ -1,9 +1,11 @@
 #include "ButtonComponent.h"
 #include "Renderer/Renderer.h"
+#include "Engine.h"
 void ButtonComponent::OnClick(Renderer& renderer, std::function<bool()> clickMethod)
 {
 	//If I click within the bounds of the button, (x -> width, y -> height)
 	//it should call the clickMethod
+	owner->scene->engine->GetInput().GetMousePosition();
 	clickMethod;
 }
 

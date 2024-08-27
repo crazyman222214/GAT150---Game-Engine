@@ -3,6 +3,9 @@
 #include "Components/RenderComponent.h"
 #include "Core/Factory.h"
 #include <iostream>
+
+FACTORY_REGISTER(Actor)
+
 void Actor::Initialize()
 {
 	for (auto& component : components)
@@ -21,6 +24,7 @@ void Actor::Update(float dt)
 			destroyed = true;
 		}
 	}
+
 
 	for (auto& component : components)
 	{
@@ -66,6 +70,21 @@ void Actor::UpdateTransformToMouse(Input& input, Vector2 previousPosition)
 	}
 	
 }
+Actor::Actor(const Actor& other)
+{
+	tag = other.tag;
+	lifespan = other.lifespan;
+	destroyed = other.destroyed;
+	transform = other.transform;
+	scene = other.scene;
+
+	for (auto& component : other.components)
+	{
+		auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+		AddComponent(std::move(clone));
+	}
+}
+
 void Actor::Read(const json_t& value)
 {
 	Object::Read(value);
@@ -77,7 +96,6 @@ void Actor::Read(const json_t& value)
 	{
 		transform.Read(GET_DATA(value, transform));
 	}
-
 
 	//Read components
 	if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
@@ -104,4 +122,12 @@ void Actor::Read(const json_t& value)
 
 void Actor::Write(json_t& value)
 {
+	if (HAS_DATA(value, transform))
+	{
+		transform.Write(GET_DATA(value, transform));
+	}
+	else
+	{
+		std::cerr << "Doesn't have transform or you are bad :0";
+	}
 }

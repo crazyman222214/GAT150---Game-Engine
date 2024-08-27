@@ -20,11 +20,13 @@ public:
 	int GetLives() const { return m_lives; }
 	void LoseLife() { m_lives--; }
 
-	
+
+	bool isHost = false;
+
 protected:
 	Engine* m_engine{ nullptr };
-	Scene* m_scene{ nullptr };
 	int m_currentRound = 0;
 	int m_maxRounds = 0;
 	int m_lives = 0;
+	int m_score = 0;
 };

@@ -1,35 +1,114 @@
 {
   "actors": [
     {
-      "name": "Player",
+      "name": "background",
       "transform": {
-        "position": [ 20, 30 ],
+        "position": [
+          400.0,
+          300.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/background.jpg"
+        }
+      ]
+    },
+    {
+      "name": "platform",
+      "transform": {
+        "position": [
+          400.0000305175781,
+          300.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
+      },
+      "components": [
+        {
+          "type": "TextureComponent",
+          "textureName": "Textures/tile_02.png"
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "damping": 0.0,
+          "gravityScale": 0,
+          "size": [
+            16,
+            16
+          ],
+          "isDynamic": false
+        }
+      ]
+    },
+    {
+      "name": "bat",
+      "transform": {
+        "position": [ 560, 400 ],
         "rotation": 0,
         "scale": 1
       },
       "components": [
         {
-          "type": "TextureComponent",
-          "textureName": "Murio.jpg"
-        },
+          "type": "TextureAnimationComponent",
+          "textureName": "textures/bat.png",
+          "fps": 10,
+          "loop": true,
+          "numColumns": 4,
+          "numRows": 1,
+          "startFrame": 1,
+          "endFrame": 4
+        }
+      ]
+    },
+
+    {
+      "name": "Player",
+      "transform": {
+        "position": [
+          400.0000305175781,
+          150.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
+      },
+      "components": [
         {
-          "type": "EnginePhysicsComponent",
-          "velocity": [ 0, 0 ],
-          "damping": 0.3
-          
+          "type": "TextureComponent",
+          "textureName": "Textures/woodcutter.png"
         },
         {
           "type": "PlayerComponent",
-          "speed": 100
+          "speed": 10
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "damping": 0.0,
+          "gravityScale": 0,
+          "size": [
+            32,
+            24
+          ]
+        },
+        {
+          "type": "AudioComponent",
+          "soundName": "audio/cowbell.wav",
+          "playOnStart": true
         }
       ]
     },
     {
       "name": "text",
       "transform": {
-        "Position": [ 560, 360 ],
-        "rotation": 0,
-        "scale": 1
+        "position": [
+          50.0,
+          30.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
       },
       "components": [
         {
@@ -37,9 +116,26 @@
           "text": "Yippee",
           "fontName": "Blockletter.otf",
           "fontSize": 24,
-          "color": [ 0, 1, 0, 1 ]
+          "color": [
+            0,
+            1,
+            0,
+            1
+          ]
         }
       ]
+    },
+    {
+      "name": "rocket",
+      "prototype": true,
+      "transform": {
+        "position": [
+          32.0,
+          32.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
+      }
     }
   ]
 }

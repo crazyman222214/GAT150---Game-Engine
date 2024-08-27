@@ -5,6 +5,7 @@ class ButtonComponent : public RenderComponent
 {
 public:
 	CLASS_DECLARATION(ButtonComponent)
+	CLASS_PROTOTYPE(ButtonComponent)
 	void OnClick(Renderer& renderer, std::function<bool()> clickMethod);
 
 	void Initialize() override;

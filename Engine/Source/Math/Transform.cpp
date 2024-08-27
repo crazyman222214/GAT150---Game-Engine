@@ -9,4 +9,7 @@ void Transform::Read(const json_t& value)
 
 void Transform::Write(json_t& value)
 {
+	WRITE_DATA(value, position);
+	WRITE_DATA(value, rotation);
+	WRITE_DATA(value, scale);
 }

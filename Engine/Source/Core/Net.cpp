@@ -71,8 +71,9 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
     enet_address_set_host(&address, "localhost");
     address.port = 1233;
 
-    server = enet_host_connect(client, &address,2,0);
-    if (!server)
+    clientServer = enet_host_connect(client, &address, 2, 0);
+    std::cout << (clientServer == nullptr);
+    if (!clientServer)
     {
         std::cerr << "An error occurred while trying to connect to ENet Server\nAddress: " << &address;
 
@@ -83,18 +84,24 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
         ENetEvent event = {};
         if (enet_host_service(client, &event, 5000) > 0 && event.type == ENET_EVENT_TYPE_CONNECT)
         {
-            std::cout << "Connection Started!";
             while (true)
             {
                 ENetEvent event;
                 while (enet_host_service(client, &event, 10) > 0)
                 {
+                    
+                    std::string message;
                     switch (event.type)
                     {
-                    case ENET_EVENT_TYPE_CONNECT:
+                    case ENET_EVENT_TYPE_CONNECT: //When something connects to it, not the other way around
+                        message = "Got a connection!";
+                        std::cout << message;
+                        sendMessage(message.c_str(), message.size() + 1, server);
+
+                        
                         break;
                     case ENET_EVENT_TYPE_RECEIVE:
-                        std::cout << "A packet has hit the pentagon";
+                        std::cout << "A packet has hit the pentagon\n" << event.packet->data;
                         enet_packet_destroy(event.packet);
                         break;
                     case ENET_EVENT_TYPE_DISCONNECT:
@@ -103,12 +110,21 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
                     }
                 }
 
+                /*When the Client connects, there should be an initial message that
+                * notifies the Host that there is a client, and there should be an echo
+                * back to the client
+                */
+                //connection = true;
+                
+                sendMessageToHost("suck one");
+                sendMessageToHost("suck one");
+
                 std::string message = "";
                 std::cin >> message;
 
                 if (!message.empty())
                 {
-                    sendMessage(message.c_str(), message.size() + 1, server);
+                    sendMessageToHost(message);
                 }
             }
         }
@@ -117,8 +133,8 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
             std::cout << "Failed to Connect (Internally Crying)\n" << event.type << "\n " << ENET_EVENT_TYPE_NONE;
 
         }
-        enet_peer_reset(server);
-        enet_host_destroy(client);
+        //enet_peer_reset(server);
+        //enet_host_destroy(client);
     }
     return true;
 }
@@ -134,18 +150,25 @@ void Net::HostCheckForConnection()
     ENetEvent event = {};
 
     /* Wait up to 10 milliseconds for an event. */
-    while (enet_host_service(server, &event, 10) > 0)
+    while (enet_host_service(server, &event, 10000) > 0)
     {
+        std::string message;
+
         switch (event.type)
         {
         case ENET_EVENT_TYPE_CONNECT:
-            std::cout << "wow";
-            std::cout << "A new client connected from %x:%u.\n" <<
-                event.peer->address.host << " " <<
-                event.peer->address.port;
-
+            message = "OMG CLIENT\n";
+            //std::cout << message;
             /* Store any relevant client information here. */
+
             client = event.peer;
+            //connection = true;
+
+            message = "Connected to Host!";
+            
+            //sendMessage(message.c_str(), message.size() + 1, client);
+            sendMessageToClient(message);
+
 
             break;
 
@@ -157,7 +180,7 @@ void Net::HostCheckForConnection()
                 event.channelID;
 
             /* Clean up the packet now that we're done using it. */
-            enet_packet_destroy(event.packet);
+            //enet_packet_destroy(event.packet);
 
 
             break;
@@ -172,18 +195,27 @@ void Net::HostCheckForConnection()
     }
     if (client)
     {
-        std::string d;
-        std::cout << "OMG CLIENT\n";
-        std::cin >> d;
         
-        sendMessage(d.c_str(), d.size() + 1, client);
+        //std::cin >> d;
+        
+        
 
     }
 }
 
 void Net::ClientFunction()
 {
-    ENetHost* client{ nullptr };
-    ENetPeer* server{ nullptr };
-    CreateClient(client, server);
+
+    CreateClient(clientClient, clientServer);
 }
+
+void Net::sendMessageToHost(std::string message)
+{
+    sendMessage(message.c_str(), sizeof(message) + 1, clientServer);
+}
+
+void Net::sendMessageToClient(std::string message)
+{
+    sendMessage(message.c_str(), message.size() + 1, client);
+}
+
