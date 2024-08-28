@@ -45,6 +45,7 @@
 #include <SDL.h>
 #include <fmod.hpp>
 #include <rapidjson/document.h>
+#include <box2d/box2d.h>
 class Engine
 {
 public:

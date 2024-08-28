@@ -22,10 +22,12 @@ public:
 	void SetPosition(const Vector2& position) override;
 	void SetVelocity(const Vector2& velocity) override;
 
+	void DestroyRigidBody();
+
 public:
 	RigidBody::def_t rigidBodyDef;
 	Vector2 size{ 0, 0 };
-
+	Vector2 scale{1, 1 };
 private:
 	std::unique_ptr<RigidBody> m_rigidBody;
 };

@@ -71,6 +71,7 @@ inline std::unique_ptr<T> Factory::Create(const std::string& name)
 {
 	if (m_registry.find(name) != m_registry.end())
 	{
+		//if found, create object
 		return std::unique_ptr<T>(dynamic_cast<T*>(m_registry[name]->Create().release()));
 	}
 

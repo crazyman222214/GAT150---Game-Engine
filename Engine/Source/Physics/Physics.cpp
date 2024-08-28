@@ -36,6 +36,7 @@ void Physics::UpdateCollision()
 		b2BodyId bodyIdA = b2Shape_GetBody(contactEvent->shapeIdA);
 		b2BodyId bodyIdB = b2Shape_GetBody(contactEvent->shapeIdB);
 
+
 		Actor* actorA = static_cast<Actor*>(b2Body_GetUserData(bodyIdA));		
 		if (!actorA || actorA->destroyed || !actorA->active) continue;
 

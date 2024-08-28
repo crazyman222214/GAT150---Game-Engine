@@ -30,15 +30,18 @@ void Scene::Update(float dt)
 	{
 		if (actor->active)
 		{
-			actor->Update(dt);
+			if (!actor->destroyed)actor->Update(dt);
 		}
 	}
 
 	std::erase_if(actors, [](auto& actor) {return actor->destroyed; });
-	Write(*document);
-
-
-	//engine->GetNetwork().sendMessage();
+	//Write(*document);
+	if (engine->GetNetwork().connection)
+	{
+		std::cout << "CONNNECTION";
+		//(game->isHost) ? engine->GetNetwork().sendMessageToClient(":Host") : engine->GetNetwork().sendMessageToHost(":Client");
+		//engine->GetNetwork().connection = false;
+	}
 
 	//Each update I need to get the json value for the player actor and send that as a packet to the connected peer
 	//Once you get the packet. it should take the packet and change any changes that need to be made for its local
@@ -100,8 +103,7 @@ void Scene::Write(json_t& value)
 
 				std::string stringPlayer = strbuf.GetString();
 				//std::cout << stringPlayer;
-
-				//engine->GetNetwork().sendMessageToClient("You a bitch");
+				
 				//Needs to know which type of client it is talking to.
 
 				//(game->isHost) ? engine->GetNetwork().sendMessageToClient(stringPlayer + ":Host") : engine->GetNetwork().sendMessageToHost(stringPlayer + ":Client");

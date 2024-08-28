@@ -5,6 +5,16 @@
 class MyGame : public Game, Observer
 {
 public:
+
+	enum class GameState
+	{
+		TITLE,
+		START_GAME,
+		GAME,
+		GAME_OVER
+		
+	};
+
 	MyGame() = default;
 	MyGame(Engine* engine) : Game{ engine } {}
 
@@ -14,8 +24,10 @@ public:
 	void Draw(Renderer& renderer) override;
 
 	void OnPlayerDead(const Event& event);
+	void OnOtherPlayerDead(const Event& event);
 	void OnAddPoints(const Event& event);
 
 private:
 	std::unique_ptr<class Scene> m_scene;
+	GameState gameState = GameState::TITLE;
 };

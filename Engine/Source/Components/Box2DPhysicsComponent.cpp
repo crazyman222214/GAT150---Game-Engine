@@ -23,7 +23,7 @@ void Box2DPhysicsComponent::Initialize()
 	}
 
 
-	m_rigidBody = std::make_unique<RigidBody>(owner->transform, size, rigidBodyDef, owner->scene->engine->GetPhysics());
+	m_rigidBody = std::make_unique<RigidBody>(owner->transform, size * scale, rigidBodyDef, owner->scene->engine->GetPhysics());
 }
 
 void Box2DPhysicsComponent::Update(float dt)
@@ -53,6 +53,11 @@ void Box2DPhysicsComponent::SetVelocity(const Vector2& velocity)
 	m_rigidBody->SetVelocity(velocity);
 }
 
+void Box2DPhysicsComponent::DestroyRigidBody()
+{
+	m_rigidBody->DestroyCollision();
+}
+
 void Box2DPhysicsComponent::Read(const json_t& value)
 {
 	READ_DATA_NAME(value, "gravityScale", rigidBodyDef.gravityScale);
@@ -65,9 +70,14 @@ void Box2DPhysicsComponent::Read(const json_t& value)
 	READ_DATA_NAME(value, "density", rigidBodyDef.density);
 	READ_DATA_NAME(value, "isSensor", rigidBodyDef.isSensor);
 
-	READ_DATA_STRUCT(value, gravityScale, rigidBodyDef);
+	std::string shape;
+	READ_DATA(value, shape);
+	//std::cout << rigidBodyDef.gravityScale << std::endl;
 
+	if (IsEqualIgnoreCase(shape, "capsule")) rigidBodyDef.shape = RigidBody::Shape::CAPSULE;
+	else if (IsEqualIgnoreCase(shape, "circle")) rigidBodyDef.shape = RigidBody::Shape::CIRCLE;
 	READ_DATA(value, size);
+	READ_DATA(value, scale);
 }
 
 void Box2DPhysicsComponent::Write(json_t& value)

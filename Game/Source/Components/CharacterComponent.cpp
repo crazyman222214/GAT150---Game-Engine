@@ -23,7 +23,7 @@ void CharacterComponent::Update(float dt)
 
 	if (owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE))
 	{
-		owner->GetComponent<PhysicsComponent>()->ApplyForce({0, -50});
+		owner->GetComponent<PhysicsComponent>()->ApplyForce({0, -500});
 	}
 }
 

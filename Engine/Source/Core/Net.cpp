@@ -42,6 +42,8 @@ bool Net::CreateServer()
         return false;
     }
 
+    
+
     return true;
 }
 
@@ -87,7 +89,7 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
             while (true)
             {
                 ENetEvent event;
-                while (enet_host_service(client, &event, 10) > 0)
+                while (enet_host_service(client, &event, 100) > 0)
                 {
                     
                     std::string message;
@@ -115,10 +117,8 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
                 * back to the client
                 */
                 //connection = true;
-                
-                sendMessageToHost("suck one");
-                sendMessageToHost("suck one");
-
+                connection = true;
+                break;
                 std::string message = "";
                 std::cin >> message;
 
@@ -126,7 +126,11 @@ bool Net::ConnectClient(ENetHost* client, ENetPeer* server)
                 {
                     sendMessageToHost(message);
                 }
+
+                
             }
+            //sendMessageToHost("suck one");
+            //sendMessageToHost("suck one");
         }
         else 
         {
@@ -150,7 +154,7 @@ void Net::HostCheckForConnection()
     ENetEvent event = {};
 
     /* Wait up to 10 milliseconds for an event. */
-    while (enet_host_service(server, &event, 10000) > 0)
+    while (enet_host_service(server, &event, 5000) > 0)
     {
         std::string message;
 
@@ -162,7 +166,7 @@ void Net::HostCheckForConnection()
             /* Store any relevant client information here. */
 
             client = event.peer;
-            //connection = true;
+            connection = true;
 
             message = "Connected to Host!";
             
@@ -205,7 +209,6 @@ void Net::HostCheckForConnection()
 
 void Net::ClientFunction()
 {
-
     CreateClient(clientClient, clientServer);
 }
 

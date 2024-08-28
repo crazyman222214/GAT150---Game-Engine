@@ -15,6 +15,7 @@ class Actor : public Object
 public:
 	
 	Actor() = default;
+	~Actor() = default;
 	Actor(const Transform& transform) : transform{ transform } {}
 	Actor(const Actor& other);
 
@@ -38,11 +39,11 @@ public:
 
 	void UpdateTransformToMouse(Input& input, Vector2 previousPosition);
 
-
 	friend class Scene;
 	std::string tag;
 	float lifespan = 0.0f;
 	bool destroyed = false;
+	
 	Transform transform;
 
 	Scene* scene{nullptr};

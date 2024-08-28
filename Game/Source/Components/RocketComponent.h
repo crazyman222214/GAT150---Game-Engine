@@ -1,17 +1,16 @@
 #pragma once
 #include "Components/Component.h"
 
-class RocketComponent : public Component
-{
+class RocketComponent : public Component {
 public:
-	CLASS_DECLARATION(RocketComponent)
-	CLASS_PROTOTYPE(RocketComponent)
+	CLASS_DECLARATION(RocketComponent);
+	CLASS_PROTOTYPE(RocketComponent);
 
-
-
-		// Inherited via Component
-		void Initialize() override;
-
+	void Initialize() override;
 	void Update(float dt) override;
 
+	void OnCollisionEnter(Actor*);
+
+public:
+	float speed = 0.0f;
 };

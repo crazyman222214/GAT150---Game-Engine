@@ -5,6 +5,14 @@
 class RigidBody
 {
 public:
+	//Scoped Enumeration: forces us to explicitly declare the scope in which the enum val is
+	enum class Shape
+	{
+		BOX,
+		CAPSULE,
+		CIRCLE
+	};
+
 	struct def_t
 	{
 		// body
@@ -15,10 +23,12 @@ public:
 		bool  isDynamic = true;
 
 		// shape
-		float friction = 0.0f;
-		float restitution = 0.5f;
+		float friction = 0.1f;
+		float restitution = 0.25f;
 		float density = 1.0f;
 		bool isSensor = false;
+
+		Shape shape = Shape::BOX;
 
 		class Actor* actor{ nullptr };
 	};
@@ -30,6 +40,8 @@ public:
 	Vector2 GetPosition();
 
 	float GetAngle();
+
+	void DestroyCollision();
 
 	void ApplyForce(const Vector2& force);
 	void SetVelocity(const Vector2& velocity);

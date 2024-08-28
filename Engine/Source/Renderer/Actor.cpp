@@ -25,7 +25,6 @@ void Actor::Update(float dt)
 		}
 	}
 
-
 	for (auto& component : components)
 	{
 		component->Update(dt);
@@ -91,7 +90,7 @@ void Actor::Read(const json_t& value)
 
 	READ_DATA(value, tag);
 	READ_DATA(value, lifespan);
-
+	READ_DATA(value, persistent);
 	if (HAS_DATA(value, transform))
 	{
 		transform.Read(GET_DATA(value, transform));

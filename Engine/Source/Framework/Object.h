@@ -16,13 +16,13 @@
 			Factory::Instance().Register<classname>(#classname);\
 		}\
 	};\
-static Register##classname register_instance;
+static Register##classname register_instance;\
 
 #define CLASS_PROTOTYPE(classname) \
 	virtual std::unique_ptr<Object> Clone()\
 {\
 	return std::make_unique<classname>(*this);\
-}
+}\
 
 class Object : public Serializable
 {
@@ -43,4 +43,5 @@ public:
 public:
 	std::string name;
 	bool active = true;
+	bool persistent = false;
 };

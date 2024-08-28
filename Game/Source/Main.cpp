@@ -2,6 +2,7 @@
 #include "Framework/Scene.h"
 #include "MyGame.h"
 #include "Components/PlayerComponent.h"
+#include "Components/RocketComponent.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -23,6 +24,7 @@ int main(int argc, char* argv[])
 	Factory::Instance().Register<AudioComponent>(AudioComponent::GetTypeName());
 	Factory::Instance().Register<TilemapComponent>(TilemapComponent::GetTypeName());
 	Factory::Instance().Register<TextureAnimationComponent>(TextureAnimationComponent::GetTypeName());
+	Factory::Instance().Register<RocketComponent>(RocketComponent::GetTypeName());
 
 	std::unique_ptr<Engine> engine = std::make_unique<Engine>();
 	engine->Initialize();
@@ -32,7 +34,7 @@ int main(int argc, char* argv[])
 
 	std::cout << "Client or server?";
 	char c = 0;
-	if (std::cin >> c)
+	if (c)
 	{
 		if (c == 'c')
 		{
@@ -56,8 +58,8 @@ int main(int argc, char* argv[])
 		while (!engine->IsQuit())
 		{
 
-			engine->Update();
 			game->Update(engine->GetTime().GetDeltaTime());
+			engine->Update();
 
 
 			engine->GetRenderer().SetColor(255, 255, 255, 0);
@@ -65,7 +67,7 @@ int main(int argc, char* argv[])
 
 			game->Draw(engine->GetRenderer());
 
-			if (c == 's')
+			if (c == 's' && !engine->GetNetwork().connection)
 			{
 				engine->GetNetwork().HostCheckForConnection();
 			}
