@@ -5,6 +5,7 @@ void PlayerComponent::Initialize()
 {
 	if (owner->name == "Player")owner->transform = { {200, 200}, 0, 1 };
 	else if (owner->name == "OtherPlayer") owner->transform = { {400, 200}, 0, 1 };
+	groundCount = 0;
 	
 	owner->OnCollisionEnter = std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1);
 
@@ -33,11 +34,13 @@ void PlayerComponent::Update(float dt)
 	if (onGround && owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_W) && owner->name == "Player")
 	{
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(Vector2{owner->GetComponent<PhysicsComponent>()->velocity.x, -200.0f});
+		owner->GetComponent<AudioComponent>()->Play();
 	}
 
 	if (onGround && owner->scene->engine->GetInput().GetKeyDown(SDL_SCANCODE_UP) && owner->name == "OtherPlayer")
 	{
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(Vector2{ owner->GetComponent<PhysicsComponent>()->velocity.x, -200.0f });
+		owner->GetComponent<AudioComponent>()->Play();
 	}
 	
 	owner->GetComponent<PhysicsComponent>()->ApplyForce(direction * speed);
@@ -53,7 +56,7 @@ void PlayerComponent::OnCollisionEnter(Actor* actor)
 		int actorBottomPosition = actor->transform.position.y - actor->GetComponent<Box2DPhysicsComponent>()->size.y;
 		int ownerTopPosition = owner->transform.position.y + owner->GetComponent<Box2DPhysicsComponent>()->size.y;
 
-		if ((actorBottomPosition + 15) > ownerTopPosition)
+		if ((actorBottomPosition + 12) > ownerTopPosition)
 		{
 
 			if (actor->name == "Player")

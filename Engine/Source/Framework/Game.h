@@ -28,5 +28,6 @@ protected:
 	int m_currentRound = 0;
 	int m_maxRounds = 0;
 	int m_lives = 0;
-	int m_score = 0;
+	int m_playerScore = 0;
+	int m_otherPlayerScore = 0;
 };

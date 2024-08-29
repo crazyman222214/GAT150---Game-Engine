@@ -35,7 +35,7 @@
         },
         {
           "type": "PlayerComponent",
-          "speed": 100
+          "speed": 120
         },
         {
           "type": "Box2DPhysicsComponent",
@@ -43,7 +43,6 @@
           "constrainAngle": true,
           "damping": 0.7,
           "gravityScale": 1,
-          "isDynamic": true,
           "size": [
             24,
             24
@@ -55,8 +54,8 @@
         },
         {
           "type": "AudioComponent",
-          "soundName": "audio/cowbell.wav",
-          "playOnStart": true
+          "soundName": "audio/Jump.wav",
+          "playOnStart": false
         }
       ]
     },
@@ -75,7 +74,7 @@
       "components": [
         {
           "type": "TextureComponent",
-          "textureName": "Textures/woodcutter.png"
+          "textureName": "Textures/MarioRemake.png"
         },
         {
           "type": "PlayerComponent",
@@ -86,11 +85,10 @@
           "shape": "capsule",
           "constrainAngle": true,
           "damping": 0.7,
-          "mass": 1.0,
           "gravityScale": 1,
           "size": [
-            24,
-            24
+            28,
+            20
           ],
           "scale": [
             0.8,
@@ -99,16 +97,16 @@
         },
         {
           "type": "AudioComponent",
-          "soundName": "audio/cowbell.wav",
-          "playOnStart": true
+          "soundName": "audio/Jump.wav",
+          "playOnStart": false
         }
       ]
     },
     {
-      "name": "text",
+      "name": "playerScore",
       "transform": {
         "position": [
-          50.0,
+          100.0,
           30.0
         ],
         "rotation": 0.0,
@@ -117,7 +115,7 @@
       "components": [
         {
           "type": "TextComponent",
-          "text": "Yippee",
+          "text": "Player 1 Score: 0",
           "fontName": "Blockletter.otf",
           "fontSize": 24,
           "color": [
@@ -126,6 +124,46 @@
             0,
             1
           ]
+        }
+      ]
+    },
+    {
+      "name": "otherPlayerScore",
+      "transform": {
+        "position": [
+          700.0,
+          30.0
+        ],
+        "rotation": 0.0,
+        "scale": 1.0
+      },
+      "components": [
+        {
+          "type": "TextComponent",
+          "text": "Player 2 Score: 0",
+          "fontName": "Blockletter.otf",
+          "fontSize": 24,
+          "color": [
+            0,
+            1,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backgroundMusic",
+      "transform": {
+        "position": [ 0, 0 ],
+        "angle": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "AudioComponent",
+          "soundName": "audio/music.mp3",
+          "playOnStart": true
         }
       ]
     }

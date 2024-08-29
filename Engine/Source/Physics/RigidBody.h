@@ -35,6 +35,7 @@ public:
 
 public:
 	RigidBody(const Transform& transform, const Vector2& size, const def_t& def, const class Physics& physics);
+	~RigidBody();
 
 	void SetTransform(const Vector2& position, float rotation);
 	Vector2 GetPosition();

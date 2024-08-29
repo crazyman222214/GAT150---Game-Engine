@@ -25,7 +25,6 @@ public:
 
 	void OnPlayerDead(const Event& event);
 	void OnOtherPlayerDead(const Event& event);
-	void OnAddPoints(const Event& event);
 
 private:
 	std::unique_ptr<class Scene> m_scene;

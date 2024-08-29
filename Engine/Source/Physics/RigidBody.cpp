@@ -64,9 +64,11 @@ RigidBody::RigidBody(const Transform& transform, const Vector2& size, const def_
 	default:
 		break;
 	}
+}
 
-
-
+RigidBody::~RigidBody()
+{
+	b2DestroyBody(m_bodyId);
 }
 
 void RigidBody::SetTransform(const Vector2& position, float rotation)
